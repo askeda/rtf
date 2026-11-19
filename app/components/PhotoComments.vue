@@ -9,7 +9,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div class="mt-4">
+  <div>
     <p v-if="!props.comments.length" class="text-sm text-gray-500">
       Brak komentarzy do tego zdjęcia.
     </p>

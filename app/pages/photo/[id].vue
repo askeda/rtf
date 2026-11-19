@@ -53,7 +53,7 @@ useHead(() => ({
     <metadata-display :info-url="photoInfoUrl" />
 
     <section class="bg-white border border-dashed border-gray-300 rounded-xl p-6 sm:p-8">
-      <div class="mb-2 flex justify-between items-center">
+      <div class="mb-4 flex justify-between items-center">
         <h2 class="text-lg font-semibold">
           Komentarze
         </h2>
@@ -63,9 +63,7 @@ useHead(() => ({
         </span>
       </div>
 
-      <div v-if="pending">
-        Pending...
-      </div>
+      <loading-skeleton v-if="pending" class="h-[70px]" :count="3" />
 
       <error-message v-else-if="error" message="Nie udało się pobrać komentarzy." />
 
