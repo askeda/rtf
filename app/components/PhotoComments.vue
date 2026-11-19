@@ -34,9 +34,9 @@ const props = defineProps<Props>()
               {{ comment.author }}
             </p>
 
-            <p class="shrink-0 text-xs text-gray-500">
-              {{ comment.createdAt }}
-            </p>
+            <time :datetime="comment.createdAt" class="shrink-0 text-xs text-gray-500">
+              {{ formatDate(comment.createdAt) }}
+            </time>
           </div>
 
           <p class="text-sm text-gray-700">

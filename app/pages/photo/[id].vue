@@ -53,9 +53,15 @@ useHead(() => ({
     <metadata-display :info-url="photoInfoUrl" />
 
     <section class="bg-white border border-dashed border-gray-300 rounded-xl p-6 sm:p-8">
-      <h2 class="text-lg font-semibold mb-2 mt-0">
-        Komentarze
-      </h2>
+      <div class="mb-2 flex justify-between items-center">
+        <h2 class="text-lg font-semibold">
+          Komentarze
+        </h2>
+
+        <span v-if="filteredComments.length" class="text-gray-500">
+          ({{ filteredComments.length }})
+        </span>
+      </div>
 
       <div v-if="pending">
         Pending...
