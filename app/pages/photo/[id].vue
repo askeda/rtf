@@ -1,6 +1,8 @@
 <script setup>
 const route = useRoute()
 
+const { comments } = useComments()
+
 // Mapowanie identyfikatorów zadania (1, 2) na identyfikatory zdjęć w picsum.
 // Pozwala wyświetlać nowsze zdjęcia z serwisu, zachowując kanoniczne ID używane
 // w routingu oraz w pliku comments.json.
@@ -72,6 +74,8 @@ useHead(() => ({
         Tutaj kandydat powinien zaimplementować pobieranie i wyświetlanie
         komentarzy z
         <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">/api/comments.json</code>.
+
+        <pre>{{ comments }}</pre>
       </p>
     </section>
   </section>
