@@ -1,8 +1,9 @@
 import * as z from 'zod'
 import { COMMENTS_ENDPOINT } from '~/api'
+import type { Comment } from '~/schemas'
 import { commentsSchema } from '~/schemas'
 
-export const useComments = () => {
+export const useComments = (photoId: string) => {
   const { data: comments, pending, error } = useFetch(COMMENTS_ENDPOINT, {
     key: 'comments',
     server: false,
@@ -21,8 +22,14 @@ export const useComments = () => {
     },
   })
 
+  const filteredComments = computed<Comment[]>(() => comments.value
+    ? comments.value.filter(comment => comment.photoId === photoId)
+    : [],
+  )
+
   return {
     comments,
+    filteredComments,
     pending,
     error,
   }
