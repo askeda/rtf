@@ -67,9 +67,7 @@ useHead(() => ({
         Pending...
       </div>
 
-      <div v-else-if="error">
-        Error
-      </div>
+      <error-message v-else-if="error" message="Nie udało się pobrać komentarzy." />
 
       <photo-comments v-else :comments="filteredComments" />
     </section>

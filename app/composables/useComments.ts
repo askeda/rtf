@@ -11,10 +11,14 @@ export const useComments = (photoId: string) => {
       const { success, data, error } = commentsSchema.safeParse(raw)
 
       if (!success) {
+        const message = z.prettifyError(error)
+
+        console.error('[useComments]', message)
+
         throw createError({
           statusCode: 500,
           statusMessage: 'Invalid comments response',
-          message: z.prettifyError(error),
+          message,
         })
       }
 
