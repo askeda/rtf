@@ -12,7 +12,7 @@ const PICSUUM_IDS = {
 // Identyfikator zdjęcia pobierany z parametru ścieżki (widoczny dla kandydata).
 const photoId = computed(() => String(route.params.id))
 
-const { pending, error, filteredComments } = useComments(photoId.value)
+const { isLoading, error, filteredComments } = useComments(photoId.value)
 
 // Wewnętrzny identyfikator używany do budowania adresów w picsum.photos.
 const picsumId = computed(
@@ -53,7 +53,7 @@ useHead(() => ({
     <metadata-display :info-url="photoInfoUrl" />
 
     <section class="bg-white border border-dashed border-gray-300 rounded-xl p-6 sm:p-8">
-      <div class="mb-2 flex justify-between items-center">
+      <div class="mb-4 flex justify-between items-center">
         <h2 class="text-lg font-semibold">
           Komentarze
         </h2>
@@ -63,13 +63,9 @@ useHead(() => ({
         </span>
       </div>
 
-      <div v-if="pending">
-        Pending...
-      </div>
+      <loading-skeleton v-if="isLoading" class="h-[70px]" :count="3" />
 
-      <div v-else-if="error">
-        Error
-      </div>
+      <error-message v-else-if="error" message="Nie udało się pobrać komentarzy." />
 
       <photo-comments v-else :comments="filteredComments" />
     </section>
