@@ -1,8 +1,6 @@
 <script setup>
 const route = useRoute()
 
-const { comments } = useComments()
-
 // Mapowanie identyfikatorów zadania (1, 2) na identyfikatory zdjęć w picsum.
 // Pozwala wyświetlać nowsze zdjęcia z serwisu, zachowując kanoniczne ID używane
 // w routingu oraz w pliku comments.json.
@@ -13,6 +11,8 @@ const PICSUUM_IDS = {
 
 // Identyfikator zdjęcia pobierany z parametru ścieżki (widoczny dla kandydata).
 const photoId = computed(() => String(route.params.id))
+
+const { pending, error, filteredComments } = useComments(photoId.value)
 
 // Wewnętrzny identyfikator używany do budowania adresów w picsum.photos.
 const picsumId = computed(
@@ -52,31 +52,26 @@ useHead(() => ({
 
     <metadata-display :info-url="photoInfoUrl" />
 
-    <!--
-      ===========================================================================
-      TODO — zadanie dla kandydata
+    <section class="bg-white border border-dashed border-gray-300 rounded-xl p-6 sm:p-8">
+      <div class="mb-2 flex justify-between items-center">
+        <h2 class="text-lg font-semibold">
+          Komentarze
+        </h2>
 
-      W tym miejscu powinien zostać dodany komponent (np. CommentsSection.vue),
-      który pobierze komentarze z endpointu /api/comments.json i wyświetli je
-      dla bieżącego zdjęcia (photoId).
+        <span v-if="filteredComments.length" class="text-gray-500">
+          ({{ filteredComments.length }})
+        </span>
+      </div>
 
-      Wskazówki:
-      - endpoint zwraca tablicę obiektów z polem `photoId`
-      - filtruj po `photoId` równym aktualnemu identyfikatorowi zdjęcia
-      - zadbaj o stany: ładowanie, błąd, brak komentarzy
-      ===========================================================================
-    -->
-    <section class="bg-white border border-dashed border-gray-300 rounded-xl p-6 sm:p-8 text-center">
-      <h2 class="text-lg font-semibold mb-2 mt-0">
-        Komentarze
-      </h2>
-      <p class="text-gray-500 m-0">
-        Tutaj kandydat powinien zaimplementować pobieranie i wyświetlanie
-        komentarzy z
-        <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">/api/comments.json</code>.
+      <div v-if="pending">
+        Pending...
+      </div>
 
-        <pre>{{ comments }}</pre>
-      </p>
+      <div v-else-if="error">
+        Error
+      </div>
+
+      <photo-comments v-else :comments="filteredComments" />
     </section>
   </section>
 </template>
