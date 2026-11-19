@@ -1,7 +1,8 @@
 {
   "name": "szablon-rekrutacyjny-nuxt4",
-  "private": true,
   "type": "module",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -22,6 +23,5 @@
     "@nuxt/eslint": "1.17.0",
     "eslint": "10.15.0",
     "typescript": "6.0.3"
-  },
-  "packageManager": "pnpm@9.12.0"
+  }
 }

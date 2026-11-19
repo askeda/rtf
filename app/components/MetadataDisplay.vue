@@ -15,21 +15,28 @@
 const props = defineProps({
   infoUrl: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 
-const { data, pending, error, refresh } = await useFetch(props.infoUrl, {
+const {
+  data,
+  pending,
+  error,
+  refresh,
+} = await useFetch(props.infoUrl, {
   key: () => `photo-info-${props.infoUrl}`,
   // picsum.photos pozwala na CORS — pobieramy po stronie klienta, aby uniknąć
   // problemów z cache'owaniem SSR pomiędzy podstronami.
-  server: false
+  server: false,
 })
 
 // Proporcje zdjęcia wyrażone liczbowo (lekka informacja poglądowa).
+// eslint-disable-next-line unused-imports/no-unused-vars
 const aspectRatio = computed(() => {
   if (!data.value?.width || !data.value?.height) return null
   const ratio = data.value.width / data.value.height
+
   return ratio.toFixed(2)
 })
 </script>
@@ -57,10 +64,25 @@ const aspectRatio = computed(() => {
     </div>
 
     <div v-else-if="error" class="flex flex-col items-start gap-2 text-red-700">
-      <p class="m-0">Nie udało się pobrać informacji o zdjęciu.</p>
+      <p class="m-0">
+        Nie udało się pobrać informacji o zdjęciu.
+      </p>
       <button
         type="button"
-        class="px-3.5 py-1.5 rounded-lg border border-gray-200 bg-white hover:bg-gray-100 hover:border-blue-600 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/40"
+        class="
+          px-3.5
+          py-1.5
+          rounded-lg
+          border
+          border-gray-200
+          bg-white
+          hover:bg-gray-100
+          hover:border-blue-600
+          transition
+          focus:outline-none
+          focus-visible:ring-4
+          focus-visible:ring-blue-500/40
+        "
         @click="refresh()"
       >
         Spróbuj ponownie
@@ -69,15 +91,43 @@ const aspectRatio = computed(() => {
 
     <dl v-else-if="data" class="grid grid-cols-1 gap-3 m-0">
       <div
-        class="grid grid-cols-1 min-[480px]:grid-cols-[140px_1fr] gap-1 min-[480px]:gap-4 pb-3 border-b border-gray-200 last:border-b-0 last:pb-0"
+        class="
+          grid
+          grid-cols-1
+          min-[480px]:grid-cols-[140px_1fr]
+          gap-1
+          min-[480px]:gap-4
+          pb-3
+          border-b
+          border-gray-200
+          last:border-b-0
+          last:pb-0
+        "
       >
-        <dt class="font-semibold text-gray-500">Autor</dt>
-        <dd class="m-0 text-gray-800">{{ data.author || '—' }}</dd>
+        <dt class="font-semibold text-gray-500">
+          Autor
+        </dt>
+        <dd class="m-0 text-gray-800">
+          {{ data.author || '—' }}
+        </dd>
       </div>
       <div
-        class="grid grid-cols-1 min-[480px]:grid-cols-[140px_1fr] gap-1 min-[480px]:gap-4 pb-3 border-b border-gray-200 last:border-b-0 last:pb-0"
+        class="
+          grid
+          grid-cols-1
+          min-[480px]:grid-cols-[140px_1fr]
+          gap-1
+          min-[480px]:gap-4
+          pb-3
+          border-b
+          border-gray-200
+          last:border-b-0
+          last:pb-0
+        "
       >
-        <dt class="font-semibold text-gray-500">Źródło</dt>
+        <dt class="font-semibold text-gray-500">
+          Źródło
+        </dt>
         <dd class="m-0 text-gray-800">
           <a
             v-if="data.url"
