@@ -4,7 +4,7 @@ import type { Comment } from '~/schemas'
 import { commentsSchema } from '~/schemas'
 
 export const useComments = (photoId: string) => {
-  const { data: comments, pending, error } = useFetch(COMMENTS_ENDPOINT, {
+  const { data: comments, status, error } = useFetch(COMMENTS_ENDPOINT, {
     key: 'comments',
     server: false,
     transform: (raw) => {
@@ -26,15 +26,16 @@ export const useComments = (photoId: string) => {
     },
   })
 
+  const isLoading = computed<boolean>(() => status.value === 'idle' || status.value === 'pending')
+
   const filteredComments = computed<Comment[]>(() => comments.value
     ? comments.value.filter(comment => comment.photoId === photoId)
     : [],
   )
 
   return {
-    comments,
     filteredComments,
-    pending,
+    isLoading,
     error,
   }
 }
