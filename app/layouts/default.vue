@@ -2,28 +2,28 @@
   <div class="min-h-screen flex flex-col bg-gray-50 text-gray-800 antialiased">
     <header class="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
       <div class="max-w-6xl mx-auto px-4 sm:px-8 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <NuxtLink
+        <nuxt-link
           to="/"
           class="flex items-center gap-2 font-bold text-lg text-gray-800"
         >
           <span class="text-2xl">📷</span>
           <span>PhotoApp</span>
-        </NuxtLink>
+        </nuxt-link>
         <nav class="flex gap-2 sm:gap-6" aria-label="Główna nawigacja">
-          <NuxtLink
+          <nuxt-link
             to="/photo/1"
             class="px-3 py-2 rounded-lg text-gray-500 font-medium transition-colors hover:text-blue-600 hover:bg-blue-50"
             active-class="text-blue-600 bg-blue-100"
           >
             Zdjęcie 1
-          </NuxtLink>
-          <NuxtLink
+          </nuxt-link>
+          <nuxt-link
             to="/photo/2"
             class="px-3 py-2 rounded-lg text-gray-500 font-medium transition-colors hover:text-blue-600 hover:bg-blue-50"
             active-class="text-blue-600 bg-blue-100"
           >
             Zdjęcie 2
-          </NuxtLink>
+          </nuxt-link>
         </nav>
       </div>
     </header>
